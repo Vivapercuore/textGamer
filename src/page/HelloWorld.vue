@@ -1,40 +1,74 @@
 <script setup lang="ts">
-import { ref ,reactive } from 'vue'
+import { ref, reactive } from "vue";
+import router from "src/router";
 
-import scenario from "src/scenario/index"
+import scenario from "src/scenario/index";
 
 // defineProps<{ msg: string  }>()
 
 const scenarioMap = ref(scenario) as Ref<State>;
+
 console.log(scenarioMap.value);
+
+const chooseScenario = (scenarioItem) => {
+  console.log("scenarioItem", scenarioItem);
+  router.push("create");
+};
 </script>
 
 <template>
-  <!-- <h1>{{ msg }}</h1> -->
-
-  <h1>
-    选择你要游玩的剧本:
-  </h1>
-  <div v-for="(scenarioItemData, scenarioItem) in scenarioMap">
-  {{scenarioItemData.name}}
-  </div>
-
+  <el-container class="page">
+    <el-header>
+      <div class="header">
+        花样人生重来器 <span class="version">v0.01</span>
+      </div>
+    </el-header>
+    <el-main>
+      <h1>选择你要游玩的剧本:</h1>
+      <el-row :gutter="20">
+        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
+          <el-card
+            class="scenarioItem"
+            @click="chooseScenario(scenarioItem)"
+            v-for="(scenarioItemData, scenarioItem) in scenarioMap"
+          >
+            <el-descriptions :title="scenarioItemData.name">
+              <el-descriptions-item label="描述：">{{
+                scenarioItemData.info
+              }}</el-descriptions-item>
+            </el-descriptions>
+          </el-card>
+        </el-col>
+      </el-row>
+    </el-main>
+    <el-footer>github,qqGourp,andsoon</el-footer>
+  </el-container>
 </template>
 
-<style scoped>
-a {
-  color: #42b983;
+<style lang="less" scoped>
+@import (reference) "src/theme/theme.less";
+.page {
+  min-height: 100vh;
+
+background-color: @pagebackground;
+
+  }
+.header {
+  text-align: center;
+
+font-size: 50px;
+
+  }
+.version {
+  font-size: 15px;
 }
 
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
+.scenarioItem {
+  .text();
 }
 
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
+.el-descriptions__body {
+  background-color: transparent;
 }
+
 </style>
