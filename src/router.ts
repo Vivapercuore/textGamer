@@ -10,8 +10,8 @@ import create from './page/create.vue'
 
 
 const routes = [
-    { path: '/', component: HelloWorld },
-    { path: '/create', component: create },
+    { path: '/create/:scenarioName', component: create, name: "create" },
+    { path: '/', component: HelloWorld, name: "HelloWorld" },
 ]
 
 

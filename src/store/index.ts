@@ -1,35 +1,25 @@
 import { createStore } from 'vuex'
 
+import scenario from './scenario'
+
+
+
 const store = createStore({
-    state: {
+    state: {//数据
         selectAddress: null
     },
-    mutations: {
+    mutations: {//信号
         setSelectAddress(state, payload) {
             state.selectAddress = payload
         }
     },
-    actions: {
+    actions: {//动作
     },
-    modules: {
+    modules: {//模块
+        scenario
     }
 });
 
 
-const moduleB = {
-    state: () => ({ //数据
-        scenarioName: ''
-    }),
-    mutations: { //信号
-        changeScenario(scenarioName) {
-            state.scenarioName = scenarioName
-        }
-    },
-    actions: { //动作
-        changeScenario({ commit }, scenarioName) {
-            commit('changeScenario', scenarioName)
-        }
-    }
-}
 
 export default store

@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
+import { CreaterList } from "src/scenario/types/interface";
+import Radio from "./radio.vue";
 
-// defineProps<{ msg: string  }>()
-
-const count = ref(0)
+const props = defineProps<{ creater: [CreaterItem] }>();
+console.log(props.creater);
+const count = ref(0);
 </script>
 
 <template>
   <!-- <h1>{{ msg }}</h1> -->
-
-  <p>
-    Recommended IDE setup:
-  </p>
+  <div v-for="createrItem in props.creater">
+    <Radio v-if="createrItem.type === 'radio'" :createrItem="createrItem" />
+  </div>
 </template>
 
 <style scoped>

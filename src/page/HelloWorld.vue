@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import router from "src/router";
+import store from "src/store";
 
 import scenario from "src/scenario/index";
 
@@ -11,8 +12,9 @@ const scenarioMap = ref(scenario) as Ref<State>;
 console.log(scenarioMap.value);
 
 const chooseScenario = (scenarioItem) => {
+  store.dispatch("changeScenario", scenarioItem);
   console.log("scenarioItem", scenarioItem);
-  router.push("create");
+  router.push({ name: "create", params: { scenarioName: scenarioItem } });
 };
 </script>
 
@@ -20,7 +22,7 @@ const chooseScenario = (scenarioItem) => {
   <el-container class="page">
     <el-header>
       <div class="header">
-        花样人生重来器 <span class="version">v0.01</span>
+        好日子都在下辈子 <span class="version">v0.01</span>
       </div>
     </el-header>
     <el-main>
@@ -50,15 +52,13 @@ const chooseScenario = (scenarioItem) => {
 .page {
   min-height: 100vh;
 
-background-color: @pagebackground;
-
-  }
+  background-color: @pagebackground;
+}
 .header {
   text-align: center;
 
-font-size: 50px;
-
-  }
+  font-size: 50px;
+}
 .version {
   font-size: 15px;
 }
@@ -70,5 +70,4 @@ font-size: 50px;
 .el-descriptions__body {
   background-color: transparent;
 }
-
 </style>
