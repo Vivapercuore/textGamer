@@ -12,8 +12,8 @@ const creater: [RadioCreaterItem] = [
     种族,
     性别,
     阵营,
-    属性调整,
     特性,
+    属性调整,
 ]
 
 

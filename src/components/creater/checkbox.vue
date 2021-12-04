@@ -9,7 +9,6 @@ const select = (itemName) => {
   const selectData = props.createrItem.values.filter((item) =>
     itemName.includes(item.name)
   );
-  console.log(itemName, selectData);
   instance.emit("change", selectData);
   instance.emit("changeData", selectData);
 };

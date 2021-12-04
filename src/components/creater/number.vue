@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import _ from "lodash";
 import { ref, reactive, computed, getCurrentInstance } from "vue";
-import { useRoute } from "vue-router";
 import store from "src/store";
 
 const instance = getCurrentInstance();
@@ -34,7 +33,6 @@ const input = (value: tring) => {
       }
     }
   }
-  console.log("input", selectData);
   //   instance.emit("change", selectData);
   instance.emit("changeData", selectData);
 };

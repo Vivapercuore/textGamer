@@ -1,4 +1,5 @@
 
+import scenario from "src/scenario/index";
 
 const store = {
     state: () => ({ //数据
@@ -16,8 +17,14 @@ const store = {
         }
     },
     actions: { //动作
-        changeScenario({ commit }, scenarioName) {
+        changeScenario({ commit, dispatch }, scenarioName) {
+            if (!scenarioName) {
+                return;
+            }
             commit('changeScenario', scenarioName)
+            const currentScenario = scenario[scenarioName];
+            //设为基础属性
+            dispatch('setPlayerData', currentScenario.baseAttr)
         }
     }
 }

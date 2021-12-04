@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import _ from "lodash";
 import { ref, computed, reactive } from "vue";
-import { useRoute } from "vue-router";
 import store from "src/store";
 import scenario from "src/scenario/index";
 

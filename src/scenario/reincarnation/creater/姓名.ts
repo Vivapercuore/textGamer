@@ -2,6 +2,7 @@ import { TextCreaterItem } from '../../types/interface'
 
 const setting: TextCreaterItem =
 {
+    require: true, //是否必需
     groupName: '姓名',
     type: "文本输入",
     values:

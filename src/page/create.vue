@@ -2,16 +2,36 @@
 import _ from "lodash";
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import router from "src/router";
 import store from "src/store";
 import Creater from "src/components/creater/index.vue";
 import AttributeState from "src/components/attributeState.vue";
 import scenario from "src/scenario/index";
 
-const router = useRoute();
-if (router?.params?.scenarioName !== store?.state?.scenario?.scenarioName) {
-  store.dispatch("changeScenario", router.params.scenarioName);
+//检查是否是正确的剧本
+if (
+  router?.currentRoute?.value?.params?.scenarioName !==
+    store?.state?.scenario?.scenarioName &&
+  router?.currentRoute?.value?.params?.scenarioName
+) {
+  console.log("dispatch");
+  store.dispatch(
+    "changeScenario",
+    router?.currentRoute?.value?.params?.scenarioName
+  );
 }
-const currentScenario = scenario[store.state.scenario.scenarioName];
+if (
+  !router?.currentRoute?.value?.params?.scenarioName &&
+  !store?.state?.scenario?.scenarioName
+) {
+  router.push({ name: "HelloWorld" });
+}
+
+const currentScenario = scenario[store.state?.scenario?.scenarioName];
+if (!currentScenario) {
+  console.log("no data");
+  router.push({ name: "HelloWorld" });
+}
 const { creater, baseAttr } = currentScenario;
 // defineProps<{ msg: string  }>()
 

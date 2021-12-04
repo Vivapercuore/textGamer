@@ -4,7 +4,7 @@ import _ from "lodash";
 
 const store = {
     state: () => ({ //数据
-        flags: ["玩家"],
+        flags: [],
         attr: {}
     }),
     // getters: {
@@ -20,7 +20,7 @@ const store = {
     actions: { //动作
         setPlayerData({ commit, dispatch }, data) {
             commit('setPlayerData', data)
-        }
+        },
     },
     modules: {
     }

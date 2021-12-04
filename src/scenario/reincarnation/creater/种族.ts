@@ -2,6 +2,7 @@ import { RadioCreaterItem } from '../../types/interface'
 
 const setting: RadioCreaterItem =
 {
+    require: true, //是否必需
     groupName: '种族',
     type: "单选器",
     values: [

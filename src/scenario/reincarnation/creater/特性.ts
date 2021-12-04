@@ -2,6 +2,7 @@ import { RadioCreaterItem } from '../../types/interface'
 
 const setting: RadioCreaterItem =
 {
+    require: false, //是否必需
     groupName: '特性',
     type: "多选器",
     values: [

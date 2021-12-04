@@ -2,6 +2,7 @@
 import _ from "lodash";
 import { reactive, computed, ref } from "vue";
 import { RadioCreaterItem, BaseInfoType } from "src/scenario/types/interface";
+import router from "src/router";
 import store from "src/store";
 import Radio from "./radio.vue";
 import Text from "./text.vue";
@@ -80,19 +81,69 @@ const changeData = (index, data) => {
   createrData[index] = data;
   setPlayerData();
 };
-//tode:在剧本选择的action中完成关联动作
-//初始化数据,从baseattr中合并数据
-setPlayerData();
-//检测是否完成了
-const createComplete = computed(() => {
+
+//校验所有必需选项
+const createComplete = () => {
   return props.creater.every((createrGourp, index) => {
-    const data = createrData[index];
-    return !_.isEmpty(data);
+    if (createrGourp.require) {
+      const data = createrData[index];
+      const verify = !_.isEmpty(data);
+      if (!verify) {
+        throw createrGourp.groupName;
+      }
+      return verify;
+    } else {
+      return true;
+    }
   });
-});
+};
 
 //进入下辈子
-const goLife = () => {};
+const goLife = () => {
+  //require的校验项
+  try {
+    const verify = createComplete();
+  } catch (error) {
+    ElNotification({
+      title: "少选了东西啊",
+      message: `${error},是必填/必选项`,
+      type: "error",
+    });
+  }
+  if (costLeft < 0) {
+    ElNotification({
+      title: "点数不够用啊",
+      message: `剩余点数不够用啊`,
+      type: "error",
+    });
+  }
+  if (costLeft > 0) {
+    ElMessageBox.confirm("你点数还有剩的哦,真的就这样么??", "Warning", {
+      confirmButtonText: "老子乐意",
+      cancelButtonText: "等我花光",
+      type: "warning",
+    })
+      .then(() => {
+        ElMessage({
+          type: "success",
+          message: "大兄弟牛逼啊",
+        });
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "好嘞,等你",
+        });
+      });
+  }
+};
+
+/**
+ * 开始游戏
+ */
+const startGame = () => {
+  router.push({ name: "play" });
+};
 </script>
 
 <template>
@@ -143,7 +194,7 @@ const goLife = () => {};
     <el-row>
       <el-col :span="24" class="btn">
         <el-button class="big" type="primary" @click="goLife"
-          >看看这辈子过的怎么样{{ createComplete }}</el-button
+          >看看这辈子过的怎么样</el-button
         >
       </el-col>
     </el-row>
