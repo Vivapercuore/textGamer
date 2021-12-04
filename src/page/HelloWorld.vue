@@ -9,11 +9,8 @@ import scenario from "src/scenario/index";
 
 const scenarioMap = ref(scenario) as Ref<State>;
 
-console.log(scenarioMap.value);
-
 const chooseScenario = (scenarioItem) => {
   store.dispatch("changeScenario", scenarioItem);
-  console.log("scenarioItem", scenarioItem);
   router.push({ name: "create", params: { scenarioName: scenarioItem } });
 };
 </script>

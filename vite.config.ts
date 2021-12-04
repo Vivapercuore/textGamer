@@ -6,6 +6,11 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    open: true,
+    port: 3000,
+    host: '0.0.0.0'
+  },
   resolve: {
     alias: {
       "src": path.resolve(__dirname, "src")

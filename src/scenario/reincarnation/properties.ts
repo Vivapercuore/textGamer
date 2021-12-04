@@ -1,6 +1,11 @@
 
 const properties = {
-    age: 0,//年龄
+    年龄: [
+        {
+            range: [0 - 3],
+            desc: "幼儿"
+        }
+    ]
 }
 
 

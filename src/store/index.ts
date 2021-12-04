@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 
 import scenario from './scenario'
+import player from './player'
 
 
 
@@ -16,7 +17,8 @@ const store = createStore({
     actions: {//动作
     },
     modules: {//模块
-        scenario
+        scenario,
+        player
     }
 });
 

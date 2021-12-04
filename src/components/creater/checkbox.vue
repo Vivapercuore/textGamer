@@ -6,13 +6,14 @@ import { RadioCreaterItem } from "src/scenario/types/interface";
 const instance = getCurrentInstance();
 const props = defineProps<{ createrItem: RadioCreaterItem }>();
 const select = (itemName) => {
-  const selectData = props.createrItem.values.find(
-    (item) => item.name === itemName
+  const selectData = props.createrItem.values.filter((item) =>
+    itemName.includes(item.name)
   );
+  console.log(itemName, selectData);
   instance.emit("change", selectData);
   instance.emit("changeData", selectData);
 };
-const formData = ref();
+const formData = ref([]);
 const hideAttr = (option) => {
   return (
     _.isEmpty(option.attrSet) &&
@@ -28,13 +29,8 @@ const hideAttr = (option) => {
       <el-col :span="24"> {{ props.createrItem.groupName }}: </el-col>
     </el-row>
     <el-row class="container">
-      <el-radio-group
-        class="content"
-        border
-        @change="select"
-        v-model="formData"
-      >
-        <el-radio-button
+      <el-checkbox-group class="content" @change="select" v-model="formData">
+        <el-checkbox-button
           class="item"
           v-for="option in props.createrItem.values"
           :label="option.name"
@@ -90,8 +86,8 @@ const hideAttr = (option) => {
               }}</el-tag>
             </el-descriptions-item>
           </el-descriptions>
-        </el-radio-button>
-      </el-radio-group>
+        </el-checkbox-button>
+      </el-checkbox-group>
     </el-row>
   </div>
 </template>
@@ -122,7 +118,8 @@ const hideAttr = (option) => {
 :deep(.el-descriptions__body) {
   background: rgba(0, 0, 0, 0);
 }
-:deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
+
+:deep(.el-checkbox-button.is-checked .el-checkbox-button__inner) {
   background: rgba(64, 160, 255, 0.2);
 }
 

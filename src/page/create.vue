@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import _ from "lodash";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import store from "src/store";
 import Creater from "src/components/creater/index.vue";
+import AttributeState from "src/components/attributeState.vue";
+import scenario from "src/scenario/index";
 
 const router = useRoute();
 if (router?.params?.scenarioName !== store?.state?.scenario?.scenarioName) {
   store.dispatch("changeScenario", router.params.scenarioName);
 }
-const scenario = store.getters.currentScenario;
-const { creater } = scenario;
-console.log(store.getters.currentScenario);
+const currentScenario = scenario[store.state.scenario.scenarioName];
+const { creater, baseAttr } = currentScenario;
 // defineProps<{ msg: string  }>()
 
-const count = ref(0);
+// const count = ref(0);
 </script>
 
 <template>
@@ -21,7 +23,8 @@ const count = ref(0);
     <el-main>
       <h1>{{ scenario.name }}</h1>
       <h2>创建角色</h2>
-      <Creater :creater="creater" />
+      <Creater :creater="creater" :baseAttr="baseAttr" />
+      <AttributeState />
     </el-main>
     <el-footer>github,qqGourp,andsoon</el-footer>
   </el-container>
