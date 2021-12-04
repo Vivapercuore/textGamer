@@ -4,6 +4,7 @@ import { ref, reactive, computed, getCurrentInstance } from "vue";
 import { useRoute } from "vue-router";
 import store from "src/store";
 
+const instance = getCurrentInstance();
 // defineProps<{ msg: string  }>()
 
 // const count = ref(0);

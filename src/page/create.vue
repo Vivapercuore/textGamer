@@ -23,6 +23,7 @@ const { creater, baseAttr } = currentScenario;
     <el-main>
       <h1>{{ scenario.name }}</h1>
       <h2>创建角色</h2>
+
       <Creater :creater="creater" :baseAttr="baseAttr" />
       <AttributeState />
     </el-main>
@@ -35,5 +36,9 @@ const { creater, baseAttr } = currentScenario;
   min-height: 100vh;
 
   background-color: @pagebackground;
+}
+
+:deep(.el-main) {
+  overflow: visible;
 }
 </style>

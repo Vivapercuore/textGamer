@@ -5,6 +5,7 @@ import { RadioCreaterItem, BaseInfoType } from "src/scenario/types/interface";
 import store from "src/store";
 import Radio from "./radio.vue";
 import Text from "./text.vue";
+import Number from "./number.vue";
 import Checkbox from "./checkbox.vue";
 
 const props = defineProps<{
@@ -95,13 +96,13 @@ const goLife = () => {};
 </script>
 
 <template>
-  <el-affix :offset="80">
+  <div class="sticky">
     <el-card type="primary">剩余点数:{{ costLeft }}</el-card>
-  </el-affix>
+  </div>
 
   <div v-for="(createrItem, index) in props.creater">
     <Radio
-      v-if="createrItem.type === 'radio'"
+      v-if="createrItem.type === '单选器'"
       :createrItem="createrItem"
       @changeData="
         (data) => {
@@ -110,7 +111,7 @@ const goLife = () => {};
       "
     />
     <Checkbox
-      v-if="createrItem.type === 'checkbox'"
+      v-if="createrItem.type === '多选器'"
       :createrItem="createrItem"
       @changeData="
         (data) => {
@@ -119,7 +120,16 @@ const goLife = () => {};
       "
     />
     <Text
-      v-if="createrItem.type === 'text'"
+      v-if="createrItem.type === '文本输入'"
+      :createrItem="createrItem"
+      @changeData="
+        (data) => {
+          changeData(index, data);
+        }
+      "
+    />
+    <Number
+      v-if="createrItem.type === '数据调整'"
       :createrItem="createrItem"
       @changeData="
         (data) => {
@@ -141,6 +151,11 @@ const goLife = () => {};
 </template>
 
 <style scoped>
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
 .btn {
   display: flex;
   justify-content: center;

@@ -3,7 +3,7 @@ import { RadioCreaterItem } from '../../types/interface'
 const setting: RadioCreaterItem =
 {
     groupName: '性别',
-    type: "radio",
+    type: "单选器",
     values: [
         {
             name: "无性", //显示名称
@@ -14,7 +14,7 @@ const setting: RadioCreaterItem =
             attrSet: {//设置属性
             },
             attrAdd: { //增加属性
-                精神: 10
+                精神: 2
             },
             attrReduce: {//减少属性
 

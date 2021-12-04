@@ -3,19 +3,19 @@ import { RadioCreaterItem } from '../../types/interface'
 const setting: RadioCreaterItem =
 {
     groupName: '种族',
-    type: "radio",
+    type: "单选器",
     values: [
         {
             name: "龙", //显示名称
             info: "长翅膀的大蜥蜴", //提示信息
-            cost: 1,//花费
+            cost: 8,//花费
             flagAdd: ["龙裔"], //增加的标签
             flagDelete: [], //删除标签,
             attrSet: {//设置属性
-                力量: 10
+                种族: "龙"
             },
             attrAdd: { //增加属性
-                精神: 5
+                力量: 10
             },
             attrReduce: {//减少属性
 
@@ -28,10 +28,10 @@ const setting: RadioCreaterItem =
             flagAdd: ["龙裔"], //增加的标签
             flagDelete: [], //删除标签,
             attrSet: {//设置属性
-
+                种族: "狗头人"
             },
-            attrAdd: { //增加属性
-
+            attrAdd: { //增加属性,
+                精神: 5,
             },
             attrReduce: {//减少属性
                 魅力: 3
@@ -44,10 +44,10 @@ const setting: RadioCreaterItem =
             flagAdd: [], //增加的标签
             flagDelete: [], //删除标签,
             attrSet: {//设置属性
-
+                种族: "人类"
             },
             attrAdd: { //增加属性
-
+                智力: 1
             },
             attrReduce: {//减少属性
 

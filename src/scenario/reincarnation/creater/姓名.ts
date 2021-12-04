@@ -3,7 +3,7 @@ import { TextCreaterItem } from '../../types/interface'
 const setting: TextCreaterItem =
 {
     groupName: '姓名',
-    type: "text",
+    type: "文本输入",
     values:
     {
         name: "角色姓名", //显示名称

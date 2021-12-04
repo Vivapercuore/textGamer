@@ -3,21 +3,22 @@ import { RadioCreaterItem } from '../../types/interface'
 const setting: RadioCreaterItem =
 {
     groupName: '特性',
-    type: "checkbox",
+    type: "多选器",
     values: [
         {
-            name: "不选也可以", //显示名称
-            info: "测试特性", //提示信息
-            cost: 0,//花费
-            flagAdd: ["无性"], //增加的标签
+            name: "出身贵族", //显示名称
+            info: "至少不是跪族", //提示信息
+            cost: 4,//花费
+            flagAdd: ["贵族"], //增加的标签
             flagDelete: [], //删除标签,
             attrSet: {//设置属性
             },
             attrAdd: { //增加属性
-                精神: 10
+                财富: 5,
+                魅力: 3
             },
             attrReduce: {//减少属性
-
+                力量: 1
             }
         },
         {
