@@ -9,6 +9,16 @@ import router from "src/router";
 
 // const count = ref(0);
 const end = store.state.game.end;
+
+const goHome = () => {
+  router.push({ name: "HelloWorld" });
+};
+const again = () => {
+  const scenarioItem = router.push({
+    name: "create",
+    params: { scenarioName: scenarioItem },
+  });
+};
 </script>
 
 <template>
@@ -24,6 +34,15 @@ const end = store.state.game.end;
       </el-col>
     </el-row>
   </el-card>
+
+  <el-row :gutter="20">
+    <el-col :span="24">
+      <div class="bnts">
+        <el-button type="primary" plain @click="goHome">回到首页</el-button>
+        <el-button type="primary" plain @click="again">再来一把</el-button>
+      </div>
+    </el-col>
+  </el-row>
 </template>
 
 <style scoped lang="less">
@@ -38,5 +57,11 @@ const end = store.state.game.end;
   color: #6e6e6e;
   margin-top: 10px;
   margin-left: 10px;
+}
+.bnts {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 </style>

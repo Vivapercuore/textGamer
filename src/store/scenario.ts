@@ -18,7 +18,7 @@ const store = {
         }
     },
     actions: { //动作
-        changeScenario({ commit, dispatch }, scenarioName) {
+        changeScenario({ commit, dispatch }, scenarioName: string) {
             if (!scenarioName) {
                 return;
             }
