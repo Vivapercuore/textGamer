@@ -10,7 +10,7 @@ import ends from './ends/index'
 
 const reincarnation: scenarioType = {
     name: "异界转生",
-    info: "感觉也没什么好讲的，看标题就行了",
+    info: "因为刚开始做,所以,你肯定只能胎死腹中的,别挣扎了,作者压根没做其他结局",
     baseAttr,
     creater,
     properties,
