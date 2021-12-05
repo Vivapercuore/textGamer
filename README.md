@@ -2,6 +2,13 @@
 
 text step gamer
 
+# auto publish
+
+[you can play game on here](https://vivapercuore.github.io/textGamerIO/)
+
+auto publish every version
+by [GitHub page](https://github.com/Vivapercuore/textGamerIO)
+
 # How to start
 
 ```
