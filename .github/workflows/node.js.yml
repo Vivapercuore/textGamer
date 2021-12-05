@@ -52,3 +52,13 @@ jobs:
     # 补充ts类型后换成 yarn build 来启用检查
     # - run: yarn build
     - run: vite build
+    - name: Pushes to another repository
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source-directory: 'dist'
+        destination-github-username: 'Vivapercuore'
+        destination-repository-name: 'textGamerIO'
+        user-email: vivapercuore@aliyun.com
+        target-branch: main
