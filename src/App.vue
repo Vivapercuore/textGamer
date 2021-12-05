@@ -4,12 +4,13 @@
 </script>
 
 <template>
-  <router-view></router-view>
+  <suspense>
+    <router-view></router-view>
+  </suspense>
 </template>
 
 <style lang="less">
 @import url("src/theme/theme.less");
-
 </style>
 
 

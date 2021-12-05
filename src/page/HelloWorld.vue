@@ -4,6 +4,8 @@ import router from "src/router";
 import store from "src/store";
 
 import scenario from "src/scenario/index";
+import PageHead from "src/components/pageHead.vue";
+import PageFoot from "src/components/pageFoot.vue";
 
 // defineProps<{ msg: string  }>()
 
@@ -18,9 +20,7 @@ const chooseScenario = (scenarioItem) => {
 <template>
   <el-container class="page">
     <el-header>
-      <div class="header">
-        好日子都在下辈子 <span class="version">v0.01</span>
-      </div>
+      <PageHead />
     </el-header>
     <el-main>
       <h1>选择你要游玩的剧本:</h1>
@@ -40,7 +40,7 @@ const chooseScenario = (scenarioItem) => {
         </el-col>
       </el-row>
     </el-main>
-    <el-footer>github,qqGourp,andsoon</el-footer>
+    <el-footer><PageFoot /></el-footer>
   </el-container>
 </template>
 
@@ -51,15 +51,6 @@ const chooseScenario = (scenarioItem) => {
 
   background-color: @pagebackground;
 }
-.header {
-  text-align: center;
-
-  font-size: 50px;
-}
-.version {
-  font-size: 15px;
-}
-
 .scenarioItem {
   .text();
 }

@@ -1,6 +1,7 @@
 
 import scenario from "src/scenario/index";
 
+
 const store = {
     state: () => ({ //数据
         scenarioName: ''
@@ -25,7 +26,7 @@ const store = {
             const currentScenario = scenario[scenarioName];
             //设为基础属性
             dispatch('setPlayerData', currentScenario.baseAttr)
-        }
+        },
     }
 }
 

@@ -2,12 +2,15 @@ import { createStore } from 'vuex'
 
 import scenario from './scenario'
 import player from './player'
+import game from './game'
+
+import packageJson from '../../package.json'
 
 
 
 const store = createStore({
     state: {//数据
-        selectAddress: null
+        version: packageJson.version
     },
     mutations: {//信号
         setSelectAddress(state, payload) {
@@ -18,7 +21,8 @@ const store = createStore({
     },
     modules: {//模块
         scenario,
-        player
+        player,
+        game,
     }
 });
 

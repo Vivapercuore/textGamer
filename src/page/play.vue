@@ -2,29 +2,52 @@
 import _ from "lodash";
 import { ref, reactive, computed, getCurrentInstance } from "vue";
 import store from "src/store";
+import router from "src/router";
+import scenario from "src/scenario/index";
+import PageHead from "src/components/pageHead.vue";
+import PageFoot from "src/components/pageFoot.vue";
+import AttributeState from "src/components/attributeState.vue";
+import HisAction from "src/components/hisAction.vue";
+import CurrentEvent from "src/components/currentEvent.vue";
+import GameEnd from "src/components/gameEnd.vue";
 
-const instance = getCurrentInstance();
+//初始化时回到顶部
+window.scrollTo(0, 0);
+// const instance = getCurrentInstance();
 // defineProps<{ msg: string  }>()
-console.log(store.state?.player?.name);
+const currentScenario = scenario[store.state?.scenario?.scenarioName];
+//无数据返回
+// if (!currentScenario) {
+//   router.push({ name: "HelloWorld" });
+// }
+
+// 新决策时回到屏幕中
+// element.scrollIntoView();
 // const count = ref(0);
+
+const showEnd = computed(() => {
+  console.log(store.state?.game?.end);
+  return !_.isEmpty(store.state?.game?.end);
+});
 </script>
 
 <template>
   <el-container class="page">
     <el-header>
-      <div class="header">
-        好日子都在下辈子 <span class="version">v0.01</span>
-      </div>
+      <PageHead />
     </el-header>
     <el-main>
-      <h1>剧本:{{}}</h1>
-      <el-row :gutter="20" v-for="(item, index) in new Array(500).fill(1)">
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4"
-          >item{{ index }}
-        </el-col>
-      </el-row>
+      <div class="content">
+        <h1>剧本:{{ currentScenario?.name }}</h1>
+        <el-affix target=".content">
+          <AttributeState />
+        </el-affix>
+        <HisAction />
+        <CurrentEvent v-if="!showEnd" />
+        <GameEnd v-if="showEnd" />
+      </div>
     </el-main>
-    <el-footer>github,qqGourp,andsoon</el-footer>
+    <el-footer><PageFoot /></el-footer>
   </el-container>
 </template>
 
@@ -35,20 +58,14 @@ console.log(store.state?.player?.name);
 
   background-color: @pagebackground;
 }
-.header {
-  text-align: center;
-
-  font-size: 50px;
+.content {
+  // max-height: 100vh;
 }
-.version {
-  font-size: 15px;
-}
-
 .scenarioItem {
   .text();
 }
 
-.el-descriptions__body {
-  background-color: transparent;
+:deep(.el-main) {
+  overflow: visible;
 }
 </style>

@@ -7,6 +7,8 @@ import store from "src/store";
 import Creater from "src/components/creater/index.vue";
 import AttributeState from "src/components/attributeState.vue";
 import scenario from "src/scenario/index";
+import PageHead from "src/components/pageHead.vue";
+import PageFoot from "src/components/pageFoot.vue";
 
 //检查是否是正确的剧本
 if (
@@ -14,7 +16,6 @@ if (
     store?.state?.scenario?.scenarioName &&
   router?.currentRoute?.value?.params?.scenarioName
 ) {
-  console.log("dispatch");
   store.dispatch(
     "changeScenario",
     router?.currentRoute?.value?.params?.scenarioName
@@ -29,7 +30,6 @@ if (
 
 const currentScenario = scenario[store.state?.scenario?.scenarioName];
 if (!currentScenario) {
-  console.log("no data");
   router.push({ name: "HelloWorld" });
 }
 const { creater, baseAttr } = currentScenario;
@@ -40,6 +40,9 @@ const { creater, baseAttr } = currentScenario;
 
 <template>
   <el-container class="page">
+    <el-header>
+      <PageHead />
+    </el-header>
     <el-main>
       <h1>{{ scenario.name }}</h1>
       <h2>创建角色</h2>
@@ -47,7 +50,7 @@ const { creater, baseAttr } = currentScenario;
       <Creater :creater="creater" :baseAttr="baseAttr" />
       <AttributeState />
     </el-main>
-    <el-footer>github,qqGourp,andsoon</el-footer>
+    <el-footer><PageFoot /></el-footer>
   </el-container>
 </template>
 <style lang="less" scoped>

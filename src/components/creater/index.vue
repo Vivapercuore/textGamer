@@ -28,16 +28,16 @@ const setPlayerData = function () {
   createrData.forEach((gourupData) => {
     if (_.isArray(gourupData)) {
       gourupData.forEach((gourupItem) => {
-        [playerData, baseCost] = attAssign(playerData, gourupItem, baseCost);
+        [playerData, baseCost] = attrAssign(playerData, gourupItem, baseCost);
       });
     }
-    [playerData, baseCost] = attAssign(playerData, gourupData, baseCost);
+    [playerData, baseCost] = attrAssign(playerData, gourupData, baseCost);
   });
   costLeft.value = baseCost;
   store.dispatch("setPlayerData", { ...playerData });
 };
 
-const attAssign = function (playerData, assignData, leftCost) {
+const attrAssign = function (playerData, assignData, leftCost) {
   const { flagAdd, flagDelete, attrSet, attrAdd, attrReduce, cost } =
     assignData;
   //删除flag
@@ -103,6 +103,34 @@ const goLife = () => {
   //require的校验项
   try {
     const verify = createComplete();
+    if (costLeft.value < 0) {
+      ElNotification({
+        title: "点数不够用啊",
+        message: `剩余点数不够用啊`,
+        type: "error",
+      });
+    } else if (costLeft.value > 0) {
+      ElMessageBox.confirm("你点数还有剩的哦,真的就这样么??", "Warning", {
+        confirmButtonText: "老子乐意",
+        cancelButtonText: "等我花光",
+        type: "warning",
+      })
+        .then(() => {
+          ElMessage({
+            type: "success",
+            message: "大兄弟牛逼啊",
+          });
+          startGame();
+        })
+        .catch(() => {
+          ElMessage({
+            type: "info",
+            message: "好嘞,等你",
+          });
+        });
+    } else {
+      startGame();
+    }
   } catch (error) {
     ElNotification({
       title: "少选了东西啊",
@@ -110,38 +138,13 @@ const goLife = () => {
       type: "error",
     });
   }
-  if (costLeft < 0) {
-    ElNotification({
-      title: "点数不够用啊",
-      message: `剩余点数不够用啊`,
-      type: "error",
-    });
-  }
-  if (costLeft > 0) {
-    ElMessageBox.confirm("你点数还有剩的哦,真的就这样么??", "Warning", {
-      confirmButtonText: "老子乐意",
-      cancelButtonText: "等我花光",
-      type: "warning",
-    })
-      .then(() => {
-        ElMessage({
-          type: "success",
-          message: "大兄弟牛逼啊",
-        });
-      })
-      .catch(() => {
-        ElMessage({
-          type: "info",
-          message: "好嘞,等你",
-        });
-      });
-  }
 };
 
 /**
  * 开始游戏
  */
 const startGame = () => {
+  store.dispatch("startGame");
   router.push({ name: "play" });
 };
 </script>

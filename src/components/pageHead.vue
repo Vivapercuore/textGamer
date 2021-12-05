@@ -2,17 +2,26 @@
 import _ from "lodash";
 import { ref, reactive, computed, getCurrentInstance } from "vue";
 import store from "src/store";
-import router from "src/router";
 
-const instance = getCurrentInstance();
+// const instance = getCurrentInstance();
 // defineProps<{ msg: string  }>()
 
 // const count = ref(0);
 </script>
 
 <template>
-  <!-- <h1>{{ msg }}</h1> -->
+  <div class="header">
+    好日子都在下辈子 <span class="version">v{{ store.state.version }}</span>
+  </div>
 </template>
 
 <style scoped lang="less">
+.header {
+  text-align: center;
+
+  font-size: 50px;
+}
+.version {
+  font-size: 15px;
+}
 </style>

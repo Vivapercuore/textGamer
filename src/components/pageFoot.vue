@@ -2,16 +2,15 @@
 import _ from "lodash";
 import { ref, reactive, computed, getCurrentInstance } from "vue";
 import store from "src/store";
-import router from "src/router";
 
-const instance = getCurrentInstance();
+// const instance = getCurrentInstance();
 // defineProps<{ msg: string  }>()
 
 // const count = ref(0);
 </script>
 
 <template>
-  <!-- <h1>{{ msg }}</h1> -->
+  <div>github,qqGourp,andsoon</div>
 </template>
 
 <style scoped lang="less">
