@@ -19,7 +19,7 @@ import store from "src/store";
 .header {
   text-align: center;
 
-  font-size: 50px;
+  font-size: 30px;
 }
 .version {
   font-size: 15px;
