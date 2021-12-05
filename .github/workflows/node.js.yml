@@ -52,6 +52,7 @@ jobs:
     # 补充ts类型后换成 yarn build 来启用检查
     # - run: yarn build
     - run: vite build
+    - run: npm version patch
     - name: Pushes to another repository
       uses: cpina/github-action-push-to-another-repository@main
       env:
