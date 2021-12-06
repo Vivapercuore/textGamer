@@ -1,0 +1,69 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+# 触发
+on:
+  push:
+    branches:
+      - main
+      - release/*
+  workflow_dispatch:
+
+# 作业内容
+jobs:
+  # 作业环境
+  build:
+    #并非升级版本号时触发
+    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+    #环境标识
+    environment: production
+
+    #作业分组
+    concurrency:
+      #并发组
+      group: production
+      #取消同组的其他工作流
+      cancel-in-progress: true
+
+    #编译环境
+    runs-on: ubuntu-latest
+
+    #构建矩阵
+    #strategy:
+    #此构建矩阵将使用不同版本的 Node.js 多次运行作业：
+    #matrix:
+    #node-version: [12.x, 14.x, 16.x]
+    # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      # checkout 操作
+      - uses: actions/checkout@v2
+      # 设置 git 用户
+      - name: Setup git user
+        run: |
+          git config --global user.name "githubWorkflow"
+          git config --global user.email "vivapercuore@aliyun.com"
+      #此步骤使用操作安装指定版本的 Node.js
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'npm'
+      - run: npm i yarn -g
+      - run: npm i vite -g
+      - run: yarn
+      # 补充ts类型后换成 yarn build 来启用检查
+      # - run: yarn build
+      - run: vite build
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'dist'
+          destination-github-username: 'Vivapercuore'
+          destination-repository-name: 'textGamerIO'
+          user-email: vivapercuore@aliyun.com
+          target-branch: main

@@ -1,0 +1,23 @@
+name: Version Increment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    #并非升级版本时触发
+    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+      # 设置 git 用户
+      - name: Setup git user
+        run: |
+          git config --global user.name "githubWorkflow"
+          git config --global user.email "vivapercuore@aliyun.com"
+      - run: npm version patch -m "[RELEASE] update to %s"
+      - run: git push
