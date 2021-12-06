@@ -7,7 +7,7 @@ import router from "src/router";
 const instance = getCurrentInstance();
 // defineProps<{ msg: string  }>()
 
-let currentEvent = reactive({});
+let currentEvent = ref({});
 
 // const count = ref(0);
 const chooseAction = (chooseEvent, chooseBtn) => {

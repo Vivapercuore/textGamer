@@ -2,8 +2,7 @@
 import _ from "lodash";
 
 import scenario from "src/scenario/index";
-import { getNewEvent } from "src/scenario/eventFilter";
-import { findEnd } from "src/scenario/endFilter";
+import core from "src/game/index";
 
 const store = {
     state: () => ({ //数据
@@ -62,13 +61,11 @@ const store = {
                     const scenarioName = rootState.scenario.scenarioName || "reincarnation"
                     const currentScenario = scenario[scenarioName];
                     //是否是一个结局
-                    const end = findEnd(currentScenario.ends, gotoPlace)
+                    const end = core.event.findEnd(currentScenario.ends, gotoPlace)
                     //是结局
-                    if (end?.length > 0) {
-                        const randomIndex = _.random(0, end.length - 1);
-                        const gotoEnd = end[randomIndex]
-                        dispatch("endGame", gotoEnd)
-                        resolve(gotoEnd)
+                    if (_.isEmpty(end)) {
+                        dispatch("endGame", end)
+                        resolve(end)
                     } else {
                         //查找事件链
                         resolve()
@@ -93,8 +90,17 @@ const store = {
                     resolve(chain)
                 } else {
                     //给个新事件
-                    const newEvent = getNewEvent(currentScenario.events, historyActions)
-                    resolve(newEvent)
+                    const newEvent = core.event.getNewEvent(currentScenario.events, historyActions)
+                    // 如果没有事件了
+                    if (!_.isEmpty(newEvent)) {
+                        resolve(newEvent)
+                    } else {
+                        const { attr, flags } = rootState.player
+                        //进入结局
+                        const end = core.event.getEnd(currentScenario.ends, attr, flags)
+                        dispatch("endGame", end)
+                        resolve(end)
+                    }
                 }
             })
         }

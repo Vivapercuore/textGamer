@@ -26,7 +26,6 @@ const currentScenario = scenario[store.state?.scenario?.scenarioName];
 // const count = ref(0);
 
 const showEnd = computed(() => {
-  console.log(store.state?.game?.end);
   return !_.isEmpty(store.state?.game?.end);
 });
 </script>
