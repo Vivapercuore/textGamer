@@ -3,7 +3,6 @@
 import { Operator, JudgeObject } from './interface'
 
 export const operation = function (obj: JudgeObject) {
-    console.log("judge", obj)
     switch (obj.operator) {
         case Operator.加:
             return add(obj.A, obj.B)
@@ -52,24 +51,36 @@ export const operation = function (obj: JudgeObject) {
 }
 
 //add , subtract , multiply , divide
-function add(A: number, B: number): number {
+function add(A: string | number, B: number): number {
+    A = Number(A)
+    B = Number(B)
     return A + B
 }
-function subtract(A: number, B: number): number {
+function subtract(A: string | number, B: number): number {
+    A = Number(A)
+    B = Number(B)
     return A - B
 }
-function multiply(A: number, B: number): number {
+function multiply(A: string | number, B: number): number {
+    A = Number(A)
+    B = Number(B)
     return A * B
 }
-function divide(A: number, B: number): number {
+function divide(A: string | number, B: number): number {
+    A = Number(A)
+    B = Number(B)
     return A / B
 }
 
 //greater less equal 
-function greater(A: number | boolean, B: number | boolean): boolean {
+function greater(A: string | number | boolean, B: number | boolean): boolean {
+    A = Number(A)
+    B = Number(B)
     return A > B
 }
-function less(A: number | boolean, B: number | boolean): boolean {
+function less(A: string | number | boolean, B: number | boolean): boolean {
+    A = Number(A)
+    B = Number(B)
     return A < B
 }
 function equal(A: number | boolean, B: number | boolean): boolean {

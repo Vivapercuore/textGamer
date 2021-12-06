@@ -19,7 +19,6 @@ export function getNewEvent(events, showEvents) {
         if (_.isEmpty(event.showif)) {
             return true
         } else {
-            console.log("judge", event)
             return judge(event.showif)
         }
     })
