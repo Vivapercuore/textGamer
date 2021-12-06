@@ -1,5 +1,6 @@
 
 import life from './life'
+import 成长 from './成长'
 
 const events = [
     {
@@ -19,6 +20,7 @@ const events = [
         ]
     },
     life,
+    成长,
 ]
 
 

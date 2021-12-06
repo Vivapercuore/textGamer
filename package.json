@@ -7,7 +7,10 @@
         "serve": "vite preview"
     },
     "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.5.0",
+        "@typescript-eslint/parser": "^5.5.0",
         "element-plus": "^1.2.0-beta.5",
+        "eslint": "^8.4.0",
         "less": "^4.1.2",
         "loadsh": "^0.0.4",
         "sass": "^1.44.0",

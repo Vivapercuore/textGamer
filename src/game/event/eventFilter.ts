@@ -2,6 +2,9 @@
 
 import _ from "lodash";
 
+
+import judge from "src/game/judge/index";
+
 export function getNewEvent(events, showEvents) {
     let flatenEvents = getAllEvnets(events)
     //过滤已经生效过的事件
@@ -11,6 +14,15 @@ export function getNewEvent(events, showEvents) {
         return _.find(showEvents, { name: event.name });
     });
     //过滤显示条件
+    flatenEvents = _.filter(flatenEvents, (event) => {
+        //没有校验选项,不过滤
+        if (_.isEmpty(event.showif)) {
+            return true
+        } else {
+            console.log("judge", event)
+            return judge(event.showif)
+        }
+    })
 
     //如果没有任何事件显示过,尝试显示默认值
     if (showEvents.length === 0) {
