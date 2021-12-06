@@ -9,7 +9,6 @@ const instance = getCurrentInstance();
 
 let currentEvent = ref({});
 
-// const count = ref(0);
 const chooseAction = (chooseEvent, chooseBtn) => {
   const historyAction = _.cloneDeep(chooseEvent);
   historyAction.choosen = chooseBtn;
@@ -19,8 +18,7 @@ const chooseAction = (chooseEvent, chooseBtn) => {
 
 const getNextEvent = async () => {
   const event = await store.dispatch("getNewEvent");
-  currentEvent = event;
-  return event;
+  currentEvent.value = event;
 };
 
 await getNextEvent();
