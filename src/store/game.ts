@@ -63,7 +63,7 @@ const store = {
                     //是否是一个结局
                     const end = core.event.findEnd(currentScenario.ends, gotoPlace)
                     //是结局
-                    if (_.isEmpty(end)) {
+                    if (!_.isEmpty(end)) {
                         dispatch("endGame", end)
                         resolve(end)
                     } else {
