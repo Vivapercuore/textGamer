@@ -34,6 +34,7 @@ await getNextEvent();
     <el-row :gutter="20" v-if="currentEvent?.options?.length">
       <el-col :span="24" class="operation">
         <el-button
+          class="optionsBtn"
           v-for="btn in currentEvent.options"
           @click="chooseAction(currentEvent, btn.label)"
           type="primary"
@@ -54,5 +55,8 @@ await getNextEvent();
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+}
+.optionsBtn {
+  margin: 5px 0;
 }
 </style>
