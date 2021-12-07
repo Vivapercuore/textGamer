@@ -15,8 +15,8 @@ on:
 jobs:
   # 作业环境
   build:
-    #并非升级版本号时触发
-    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+    #升级版本号时触发
+    if: "startsWith(github.event.head_commit.message, '[RELEASE]')"
     #环境标识
     environment: production
 
