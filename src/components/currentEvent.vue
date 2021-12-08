@@ -3,10 +3,12 @@ import _ from "lodash";
 import { ref, reactive, computed, getCurrentInstance } from "vue";
 import store from "src/store";
 import router from "src/router";
+import scenario from "src/scenario/index";
 
-const instance = getCurrentInstance();
-// defineProps<{ msg: string  }>()
+// const instance = getCurrentInstance();
+defineProps<{ msg: string }>();
 
+const currentScenario = scenario[store.state?.scenario?.scenarioName];
 let currentEvent = ref({});
 
 let viewdom = ref(null);
@@ -31,12 +33,13 @@ const scrollIntoView = () => {
     viewdom?.value?.scrollIntoView?.({
       behavior: "smooth",
       block: "start",
-      inline: "center"
+      inline: "center",
     });
   });
 };
-
-await getNextEvent();
+if (currentScenario) {
+  await getNextEvent();
+}
 </script>
 
 <template>
@@ -54,7 +57,8 @@ await getNextEvent();
             v-for="btn in currentEvent?.options"
             @click="chooseAction(currentEvent, btn.label)"
             type="primary"
-          >{{ btn.label }}</el-button>
+            >{{ btn.label }}</el-button
+          >
         </el-col>
       </el-row>
     </el-card>

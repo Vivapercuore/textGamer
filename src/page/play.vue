@@ -38,7 +38,7 @@ const showEnd = computed(() => {
           <AttributeState />
         </el-affix>
         <HisAction />
-        <!-- <CurrentEvent v-if="!showEnd" /> -->
+        <CurrentEvent v-if="!showEnd" />
         <GameEnd v-if="showEnd" />
       </div>
     </el-main>
