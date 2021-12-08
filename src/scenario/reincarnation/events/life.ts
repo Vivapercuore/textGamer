@@ -8,7 +8,7 @@ const events = {
             options: [
                 {
                     label: "涨不涨咱都买不起啊",
-                    // choosenText: "平安无事的度过了一年", //没有的话会显示上面那个text
+                    choosenText: "真是操蛋", //没有的话会显示上面那个text
                     goto: [], //另一个事件的 name 列表,随机显示其中一个,如果没有,就会随机选择下一个符合的事件,用于事件链
                 },
                 {
