@@ -11,36 +11,43 @@ import PageFoot from "src/components/pageFoot.vue";
 
 const scenarioMap = ref(scenario) as Ref<State>;
 
-const chooseScenario = (scenarioItem) => {
+const chooseScenario = scenarioItem => {
   store.dispatch("changeScenario", scenarioItem);
   router.push({ name: "create", params: { scenarioName: scenarioItem } });
 };
 </script>
 
 <template>
-  <el-container class="page">
+  <el-container class="page hw">
     <el-header>
       <PageHead />
     </el-header>
     <el-main>
       <h1>选择你要游玩的剧本:</h1>
-      <el-row :gutter="20">
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-          <el-card
-            class="scenarioItem"
-            @click="chooseScenario(scenarioItem)"
-            v-for="(scenarioItemData, scenarioItem) in scenarioMap"
-          >
+      <el-row :gutter="20" v-if="scenarioMap">
+        <el-col
+          :xs="24"
+          :sm="12"
+          :md="8"
+          :lg="6"
+          :xl="4"
+          v-for="(scenarioItemData, scenarioItem) in scenarioMap"
+        >
+          <el-card class="scenarioItem" @click="chooseScenario(scenarioItem)">
             <el-descriptions :title="scenarioItemData.name">
-              <el-descriptions-item label="描述：">{{
+              <el-descriptions-item label="描述：">
+                {{
                 scenarioItemData.info
-              }}</el-descriptions-item>
+                }}
+              </el-descriptions-item>
             </el-descriptions>
           </el-card>
         </el-col>
       </el-row>
     </el-main>
-    <el-footer><PageFoot /></el-footer>
+    <el-footer>
+      <PageFoot />
+    </el-footer>
   </el-container>
 </template>
 

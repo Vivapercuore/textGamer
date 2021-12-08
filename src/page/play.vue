@@ -16,14 +16,10 @@ window.scrollTo(0, 0);
 // const instance = getCurrentInstance();
 // defineProps<{ msg: string  }>()
 const currentScenario = scenario[store.state?.scenario?.scenarioName];
-//无数据返回
-// if (!currentScenario) {
-//   router.push({ name: "HelloWorld" });
-// }
-
-// 新决策时回到屏幕中
-// element.scrollIntoView();
-// const count = ref(0);
+// 无数据返回;
+if (!currentScenario) {
+  router.push({ name: "HelloWorld" });
+}
 
 const showEnd = computed(() => {
   return !_.isEmpty(store.state?.game?.end);
@@ -31,7 +27,7 @@ const showEnd = computed(() => {
 </script>
 
 <template>
-  <el-container class="page">
+  <el-container class="page play">
     <el-header>
       <PageHead />
     </el-header>
@@ -42,11 +38,13 @@ const showEnd = computed(() => {
           <AttributeState />
         </el-affix>
         <HisAction />
-        <CurrentEvent v-if="!showEnd" />
+        <!-- <CurrentEvent v-if="!showEnd" /> -->
         <GameEnd v-if="showEnd" />
       </div>
     </el-main>
-    <el-footer><PageFoot /></el-footer>
+    <el-footer>
+      <PageFoot />
+    </el-footer>
   </el-container>
 </template>
 

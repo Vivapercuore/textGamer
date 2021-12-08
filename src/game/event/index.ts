@@ -1,10 +1,11 @@
 
-import { getNewEvent } from './eventFilter'
+import { getNewEvent, findEvent } from './eventFilter'
 import { findEnd, getEnd } from './endFilter'
 
 
 const event = {
     getNewEvent,
+    findEvent,
     findEnd,
     getEnd,
 }

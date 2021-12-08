@@ -41,6 +41,18 @@ export function getNewEvent(events, showEvents) {
     return {}
 }
 
+export function findEvent(events, name) {
+    let flatenEvents = getAllEvnets(events)
+    console.log(name)
+    if (name) {
+        const appointEvent = flatenEvents.find(event => event.name === name)
+        if (appointEvent) {
+            return appointEvent
+        }
+    }
+    return {}
+}
+
 
 function getAllEvnets(events) {
     const flatEvents = [];

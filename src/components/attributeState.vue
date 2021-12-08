@@ -13,17 +13,23 @@ const currentScenario = scenario[store.state.scenario.scenarioName];
 const getPropertie = (attr, value) => {
   const ranges = currentScenario?.properties?.[attr];
   if (ranges) {
-    const inRanges = ranges.filter((range) => {
+    const inRanges = ranges.filter(range => {
       return _.inRange(value, ...range.range);
     });
     const randomIndex = _.random(0, inRanges.length - 1);
     return inRanges?.[randomIndex]?.desc;
   }
 };
+
+const showComp = computed(() => {
+  const hasFlag = store.state.player?.flags?.length > 0;
+  const hasAttr = !_.isEmpty(store.state.player?.attr);
+  return hasFlag && hasAttr;
+});
 </script>
 
 <template>
-  <el-card class="box-card">
+  <el-card class="box-card" v-show="showComp">
     <el-scrollbar>
       <div class="content">
         <!-- 属性表 -->
@@ -32,8 +38,10 @@ const getPropertie = (attr, value) => {
             v-for="(value, attr) in store.state.player.attr"
             :key="attr + value"
             :label="attr"
-            >{{ value
-            }}<span class="propertie">{{ getPropertie(attr, value) }}</span>
+          >
+            {{ value
+            }}
+            <span class="propertie">{{ getPropertie(attr, value) }}</span>
           </el-descriptions-item>
         </el-descriptions>
         <!-- flags -->
@@ -41,8 +49,7 @@ const getPropertie = (attr, value) => {
           v-for="(flag, index) in store.state.player.flags"
           :key="index"
           class="flags"
-          >{{ flag }}
-        </el-tag>
+        >{{ flag }}</el-tag>
       </div>
     </el-scrollbar>
   </el-card>

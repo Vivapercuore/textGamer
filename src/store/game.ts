@@ -58,7 +58,7 @@ const store = {
                 //是否有去处
                 if (gotoPlace) {
                     //FIXME: test data
-                    const scenarioName = rootState.scenario.scenarioName || "reincarnation"
+                    const scenarioName = rootState.scenario.scenarioName //|| "reincarnation"
                     const currentScenario = scenario[scenarioName];
                     //是否是一个结局
                     const end = core.event.findEnd(currentScenario.ends, gotoPlace)
@@ -68,7 +68,8 @@ const store = {
                         resolve(end)
                     } else {
                         //查找事件链
-                        resolve()
+                        const event = core.event.findEvent(currentScenario.events, gotoPlace)
+                        resolve(event)
                     }
                 } else {
                     resolve()
@@ -78,15 +79,17 @@ const store = {
         getNewEvent({ commit, dispatch, rootState }) {
             return new Promise(async (resolve, reject) => {
                 //FIXME: test data
-                const scenarioName = rootState.scenario.scenarioName || "reincarnation"
-                const historyActions = rootState.game.historyActions || "reincarnation"
+                const scenarioName = rootState.scenario.scenarioName //|| "reincarnation"
+                const historyActions = rootState.game.historyActions //|| "reincarnation"
                 if (!scenarioName) {
                     reject("no scenario")
+                    return
+                    console.log("no scenario")
                 }
                 const currentScenario = scenario[scenarioName];
                 //返回关联的事件链
                 const chain = await dispatch("eventChain")
-                if (chain) {
+                if (!_.isEmpty(chain)) {
                     resolve(chain)
                 } else {
                     //给个新事件
