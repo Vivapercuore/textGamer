@@ -19,7 +19,6 @@ export function getNewEvent(events, showEvents) {
         if (_.isEmpty(event.showif)) {
             return true
         } else {
-            console.log("judge", event)
             return judge(event.showif)
         }
     })
@@ -39,6 +38,18 @@ export function getNewEvent(events, showEvents) {
     }
 
     //如果没有符合的
+    return {}
+}
+
+export function findEvent(events, name) {
+    let flatenEvents = getAllEvnets(events)
+    console.log(name)
+    if (name) {
+        const appointEvent = flatenEvents.find(event => event.name === name)
+        if (appointEvent) {
+            return appointEvent
+        }
+    }
     return {}
 }
 

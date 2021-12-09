@@ -10,19 +10,31 @@ import router from "src/router";
 // const count = ref(0);
 const end = store.state.game.end;
 
+let viewdom = ref(null);
+
 const goHome = () => {
   router.push({ name: "HelloWorld" });
 };
 const again = () => {
   const scenarioItem = router.push({
     name: "create",
-    params: { scenarioName: scenarioItem },
+    params: { scenarioName: scenarioItem }
   });
 };
+
+console.log("end");
+setTimeout(() => {
+  //滑动到当前位置
+  viewdom?.value?.scrollIntoView?.({
+    behavior: "smooth",
+    block: "start",
+    inline: "center"
+  });
+}, 500);
 </script>
 
 <template>
-  <h1 class="gameEnd">游戏结束</h1>
+  <h1 class="gameEnd" ref="viewdom">游戏结束</h1>
 
   <el-card class="currentEvent">
     <el-row :gutter="20">

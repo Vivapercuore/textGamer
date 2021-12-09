@@ -32,7 +32,7 @@ const currentScenario = scenario[store.state?.scenario?.scenarioName];
 if (!currentScenario) {
   router.push({ name: "HelloWorld" });
 }
-const { creater, baseAttr } = currentScenario;
+const { creater, baseAttr, startBtnLable } = currentScenario;
 // defineProps<{ msg: string  }>()
 
 // const count = ref(0);
@@ -44,13 +44,13 @@ const { creater, baseAttr } = currentScenario;
       <PageHead />
     </el-header>
     <el-main>
-      <h1>{{ scenario.name }}</h1>
-      <h2>创建角色</h2>
-
-      <Creater :creater="creater" :baseAttr="baseAttr" />
+      <h1 class="title">{{ currentScenario.name }}</h1>
+      <Creater :creater="creater" :baseAttr="baseAttr" :startBtnLable="startBtnLable" />
       <AttributeState />
     </el-main>
-    <el-footer><PageFoot /></el-footer>
+    <el-footer>
+      <PageFoot />
+    </el-footer>
   </el-container>
 </template>
 <style lang="less" scoped>
@@ -60,8 +60,14 @@ const { creater, baseAttr } = currentScenario;
 
   background-color: @pagebackground;
 }
+.title {
+  text-align: center;
+}
 
 :deep(.el-main) {
   overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

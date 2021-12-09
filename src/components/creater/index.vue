@@ -12,22 +12,27 @@ import Checkbox from "./checkbox.vue";
 const props = defineProps<{
   creater: [RadioCreaterItem];
   baseAttr: BaseInfoType;
+  startBtnLable: string | null;
 }>();
 const createrData = reactive([]);
+
+const showCreater = computed(() => {
+  return props?.creater?.length > 0;
+});
 
 const costLeft = ref(props.baseAttr.cost);
 /**
  * 合并属性
  * 发送到store显示
  */
-const setPlayerData = function () {
+const setPlayerData = function() {
   let baseAttr = _.cloneDeep(props.baseAttr);
   let playerData = _.assign({ flags: [], attr: {} }, baseAttr);
   let baseCost = baseAttr.cost;
 
-  createrData.forEach((gourupData) => {
+  createrData.forEach(gourupData => {
     if (_.isArray(gourupData)) {
-      gourupData.forEach((gourupItem) => {
+      gourupData.forEach(gourupItem => {
         [playerData, baseCost] = attrAssign(playerData, gourupItem, baseCost);
       });
     }
@@ -37,9 +42,15 @@ const setPlayerData = function () {
   store.dispatch("setPlayerData", { ...playerData });
 };
 
-const attrAssign = function (playerData, assignData, leftCost) {
-  const { flagAdd, flagDelete, attrSet, attrAdd, attrReduce, cost } =
-    assignData;
+const attrAssign = function(playerData, assignData, leftCost) {
+  const {
+    flagAdd,
+    flagDelete,
+    attrSet,
+    attrAdd,
+    attrReduce,
+    cost
+  } = assignData;
   //删除flag
   if (!_.isEmpty(flagDelete)) {
     _.pull(playerData.flags, ...flagDelete);
@@ -107,25 +118,25 @@ const goLife = () => {
       ElNotification({
         title: "点数不够用啊",
         message: `剩余点数不够用啊`,
-        type: "error",
+        type: "error"
       });
     } else if (costLeft.value > 0) {
       ElMessageBox.confirm("你点数还有剩的哦,真的就这样么??", "Warning", {
         confirmButtonText: "老子乐意",
         cancelButtonText: "等我花光",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           ElMessage({
             type: "success",
-            message: "大兄弟牛逼啊",
+            message: "大兄弟牛逼啊"
           });
           startGame();
         })
         .catch(() => {
           ElMessage({
             type: "info",
-            message: "好嘞,等你",
+            message: "好嘞,等你"
           });
         });
     } else {
@@ -135,7 +146,7 @@ const goLife = () => {
     ElNotification({
       title: "少选了东西啊",
       message: `${error},是必填/必选项`,
-      type: "error",
+      type: "error"
     });
   }
 };
@@ -150,55 +161,56 @@ const startGame = () => {
 </script>
 
 <template>
-  <div class="sticky">
-    <el-card type="primary">剩余点数:{{ costLeft }}</el-card>
-  </div>
+  <template v-if="showCreater">
+    <div class="sticky">
+      <el-card v-show="costLeft" type="primary">剩余点数:{{ costLeft }}</el-card>
+    </div>
 
-  <div v-for="(createrItem, index) in props.creater">
-    <Radio
-      v-if="createrItem.type === '单选器'"
-      :createrItem="createrItem"
-      @changeData="
+    <h2>创建角色</h2>
+    <div v-for="(createrItem, index) in props.creater">
+      <Radio
+        v-if="createrItem.type === '单选器'"
+        :createrItem="createrItem"
+        @changeData="
         (data) => {
           changeData(index, data);
         }
       "
-    />
-    <Checkbox
-      v-if="createrItem.type === '多选器'"
-      :createrItem="createrItem"
-      @changeData="
+      />
+      <Checkbox
+        v-if="createrItem.type === '多选器'"
+        :createrItem="createrItem"
+        @changeData="
         (data) => {
           changeData(index, data);
         }
       "
-    />
-    <Text
-      v-if="createrItem.type === '文本输入'"
-      :createrItem="createrItem"
-      @changeData="
+      />
+      <Text
+        v-if="createrItem.type === '文本输入'"
+        :createrItem="createrItem"
+        @changeData="
         (data) => {
           changeData(index, data);
         }
       "
-    />
-    <Number
-      v-if="createrItem.type === '数据调整'"
-      :createrItem="createrItem"
-      @changeData="
+      />
+      <Number
+        v-if="createrItem.type === '数据调整'"
+        :createrItem="createrItem"
+        @changeData="
         (data) => {
           changeData(index, data);
         }
       "
-    />
-  </div>
+      />
+    </div>
+  </template>
 
   <div>
     <el-row>
       <el-col :span="24" class="btn">
-        <el-button class="big" type="primary" @click="goLife"
-          >看看这辈子过的怎么样</el-button
-        >
+        <el-button class="big" type="primary" @click="goLife">{{props.startBtnLable||'看看这辈子过的怎么样'}}</el-button>
       </el-col>
     </el-row>
   </div>
