@@ -37,10 +37,11 @@ export const operation = function (obj: JudgeObject) {
         case Operator.非:
             return no(obj.A, obj.B)
             break;
+
         case Operator.全部:
             return no(obj.A, obj.B)
             break;
-        case Operator.只要:
+        case Operator.任意:
             return no(obj.A, obj.B)
             break;
 
