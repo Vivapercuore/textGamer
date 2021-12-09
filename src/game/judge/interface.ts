@@ -14,7 +14,7 @@ export enum Operator {
     或 = "或",
     非 = "非",
     全部 = "全部",
-    只要 = "只要",
+    任意 = "任意",
 }
 
 export interface JudgeObject {
