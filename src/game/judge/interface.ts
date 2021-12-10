@@ -15,11 +15,13 @@ export enum Operator {
     非 = "非",
     全部 = "全部",
     任意 = "任意",
+    //
 }
 
 export interface JudgeObject {
     operator: Operator
     A: string | number | JudgeObject
     B?: string | number | JudgeObject
+    flag?: string[]
 }
 
