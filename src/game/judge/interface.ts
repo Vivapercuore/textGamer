@@ -23,11 +23,9 @@ export interface JudgeObject {
 
 export enum FlagOperator {
     //逻辑
-    且 = "且",
-    或 = "或",
-    非 = "非",
+    不含 = "不含",
     全部 = "全部",
-    任意 = "任意",
+    包含 = "包含",
 }
 
 export interface FlagJudgeObject {
