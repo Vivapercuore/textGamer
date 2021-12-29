@@ -13,8 +13,11 @@ export enum Operator {
     且 = "且",
     或 = "或",
     非 = "非",
+    //集合
     全部 = "全部",
     任意 = "任意",
+    包含 = "包含",
+    不含 = "不含",
 }
 
 export interface JudgeObject {
