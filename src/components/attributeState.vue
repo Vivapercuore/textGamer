@@ -13,7 +13,7 @@ const currentScenario = scenario[store.state.scenario.scenarioName];
 const getPropertie = (attr, value) => {
   const ranges = currentScenario?.properties?.[attr];
   if (ranges) {
-    const inRanges = ranges.filter(range => {
+    const inRanges = ranges.filter((range) => {
       return _.inRange(value, ...range.range);
     });
     const randomIndex = _.random(0, inRanges.length - 1);
@@ -24,7 +24,7 @@ const getPropertie = (attr, value) => {
 const showComp = computed(() => {
   const hasFlag = store.state.player?.flags?.length > 0;
   const hasAttr = !_.isEmpty(store.state.player?.attr);
-  return hasFlag && hasAttr;
+  return hasFlag || hasAttr;
 });
 </script>
 
@@ -39,8 +39,7 @@ const showComp = computed(() => {
             :key="attr + value"
             :label="attr"
           >
-            {{ value
-            }}
+            {{ value }}
             <span class="propertie">{{ getPropertie(attr, value) }}</span>
           </el-descriptions-item>
         </el-descriptions>
@@ -49,7 +48,8 @@ const showComp = computed(() => {
           v-for="(flag, index) in store.state.player.flags"
           :key="index"
           class="flags"
-        >{{ flag }}</el-tag>
+          >{{ flag }}</el-tag
+        >
       </div>
     </el-scrollbar>
   </el-card>

@@ -12,7 +12,7 @@ const creater: Array<RadioCreaterItem | TextCreaterItem> = [
     // 种族,
     // 性别,
     // 阵营,
-    ...属性调整,
+    属性调整,
     // 特性,
 ]
 

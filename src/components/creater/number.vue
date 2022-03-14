@@ -4,7 +4,7 @@ import { ref, reactive, computed, getCurrentInstance } from "vue";
 import store from "src/store";
 
 const instance = getCurrentInstance();
-const input = (value: tring) => {
+const input = (value: string) => {
   const selectData = {
     attrAdd: {
       //增加属性
@@ -17,19 +17,32 @@ const input = (value: tring) => {
   for (const key in formData) {
     if (Object.prototype.hasOwnProperty.call(formData, key)) {
       const attrvalue = formData[key];
+
       if (attrvalue > 0) {
         selectData.attrAdd[key] = Math.abs(attrvalue);
         const option = props.createrItem.values.find(
           (item) => item.attrName === key
         );
-        selectData.cost += attrvalue * option.cost;
+        if (option.costSet) {
+          selectData.cost = option.costSet.find(
+            (item) => item.num === attrvalue
+          )?.cost;
+        } else {
+          selectData.cost += attrvalue * option.cost;
+        }
       }
       if (attrvalue < 0) {
         selectData.attrReduce[key] = Math.abs(attrvalue);
         const option = props.createrItem.values.find(
           (item) => item.attrName === key
         );
-        selectData.cost += attrvalue * option.cost;
+        if (option.costSet) {
+          selectData.cost = option.costSet.find(
+            (item) => item.num === attrvalue
+          )?.cost;
+        } else {
+          selectData.cost += attrvalue * option.cost;
+        }
       }
     }
   }
@@ -37,9 +50,36 @@ const input = (value: tring) => {
   instance.emit("changeData", selectData);
 };
 
+const showcost = (attrName: string): string => {
+  const attrvalue = formData[attrName];
+  const option = props.createrItem.values.find(
+    (item: any) => item.attrName === attrName
+  );
+  let cost = 0;
+  if (option.costSet) {
+    cost = option.costSet.find((opt: any) => opt.num === attrvalue)?.cost;
+  } else {
+    cost = option.cost * attrvalue;
+  }
+  return `${cost < 0 ? "+" : ""}${-cost}`;
+};
+const showcostClass = (attrName: string): string => {
+  const attrvalue = formData[attrName];
+  const option = props.createrItem.values.find(
+    (item: any) => item.attrName === attrName
+  );
+  let cost = 0;
+  if (option.costSet) {
+    cost = option.costSet.find((opt: any) => opt.num === attrvalue)?.cost;
+  } else {
+    cost = option.cost * attrvalue;
+  }
+  return cost < 0 ? "reduce" : "add";
+};
+
 const props = defineProps<{ createrItem: RadioCreaterItem }>();
 const playerAttr = _.cloneDeep(store.state.player.attr);
-const formData = reactive(
+const formData: any = reactive(
   _.mapValues(playerAttr, () => {
     return 0;
   })
@@ -56,12 +96,14 @@ const formData = reactive(
       <el-card v-for="option in props.createrItem.values" class="content-card">
         <div class="info">
           {{ option.attrName }}:
-          <span class="decs">每点调整消耗/增加 {{ option.cost }}点 点数:</span>
+          <span v-if="option.cost" class="decs"
+            >每点调整消耗/增加 {{ option.cost }}点 点数:</span
+          >
         </div>
         <el-input-number
           v-model="formData[option.attrName]"
-          :min="-option.maxModify"
-          :max="option.maxModify"
+          :min="option.min || -option.maxModify"
+          :max="option.max || option.maxModify"
           @change="input"
         />
         <div class="res">
@@ -75,20 +117,10 @@ const formData = reactive(
           </span>
           <span>
             <span>点数:</span>
-            <span
-              :class="
-                formData[option.attrName] * option.cost >= 0 ? 'reduce' : 'add'
-              "
-              >{{ formData[option.attrName] * option.cost >= 0 ? "" : "+" }}
+            <span :class="showcostClass(option.attrName)"
+              >{{ showcost(option.attrName) }}
             </span>
-            <span
-              :class="
-                formData[option.attrName] * option.cost >= 0 ? 'reduce' : 'add'
-              "
-            >
-              {{ -formData[option.attrName] * option.cost }}</span
-            ></span
-          >
+          </span>
         </div>
       </el-card>
     </el-row>

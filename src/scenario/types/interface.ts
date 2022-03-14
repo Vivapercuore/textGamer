@@ -4,7 +4,7 @@ export interface RadioCreaterItem {
     require?: boolean;
     groupName: string;
     type: RadioTypes | string;
-    values: RadioCreaterValue[];
+    values: Array<RadioCreaterValue | NumberCreaterValue | TextCreaterItem>;
 }
 
 export enum RadioTypes {
@@ -14,6 +14,16 @@ export enum RadioTypes {
     数据调整 = "数据调整",
 }
 
+//属性调整
+interface NumberCreaterValue {
+    attrName?: string;
+    min?: number;
+    max?: number;
+    maxModify?: number;
+    costSet?: Array<{ num: number, cost: number }>;
+    cost?: number;
+}
+//TODO: 区分每种选择器的类型
 interface RadioCreaterValue {
     name?: string;
     info?: string;
@@ -23,7 +33,6 @@ interface RadioCreaterValue {
     attrSet?: AttrSet;
     attrAdd?: AttrSet;
     attrReduce?: AttrSet;
-
 }
 
 interface AttrSet {
@@ -39,11 +48,11 @@ export interface scenarioType {
     name: string;
     info: string;
     baseAttr: BaseInfoType,
-    creater: Array<RadioCreaterItem | TextCreaterItem>,
-    properties,
+    creater: Array<RadioCreaterItem>,
+    properties: any,
     startBtnLable?: string;
 }
-
+//文本编辑器
 export interface TextCreaterItem {
     require?: boolean;
     groupName: string;
