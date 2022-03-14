@@ -11,3 +11,5 @@ const textReplacer = function (text) {
 }
 
 export default textReplacer
+
+

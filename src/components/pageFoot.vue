@@ -11,7 +11,7 @@ import store from "src/store";
 
 <template>
   <div class="foot">
-    <a class="link" href="https://github.com/Vivapercuore/textGamer">github</a>
+    <!-- <a class="link" href="https://github.com/Vivapercuore/textGamer">github</a>
     <span class="author">作者:vivapercuore</span>
     <span class="qq">QQ:986887506</span>
     <a
@@ -19,7 +19,7 @@ import store from "src/store";
       href="https://github.com/Vivapercuore/textGamerIO/blob/main/README.md"
     >
       说明
-    </a>
+    </a> -->
   </div>
 </template>
 

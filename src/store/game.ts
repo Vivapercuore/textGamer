@@ -82,9 +82,9 @@ const store = {
                 const scenarioName = rootState.scenario.scenarioName //|| "reincarnation"
                 const historyActions = rootState.game.historyActions //|| "reincarnation"
                 if (!scenarioName) {
+                    console.log("no scenario")
                     reject("no scenario")
                     return
-                    console.log("no scenario")
                 }
                 const currentScenario = scenario[scenarioName];
                 //返回关联的事件链

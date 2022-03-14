@@ -11,7 +11,7 @@ import store from "src/store";
 
 <template>
   <div class="header">
-    好日子都在下辈子 <span class="version">v{{ store.state.version }}</span>
+    chat <span class="version">v{{ store.state.version }}</span>
   </div>
 </template>
 
