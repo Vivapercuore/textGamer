@@ -7,6 +7,7 @@ import create from './page/create.vue'
 import play from './page/play.vue'
 
 
+import Test from './page/Test.vue'
 
 
 
@@ -26,6 +27,11 @@ const routes = [
         path: '/',
         component: helloWorld,
         name: "HelloWorld"
+    },
+    {
+        path: '/test',
+        component: Test,
+        name: "test"
     },
 ]
 
