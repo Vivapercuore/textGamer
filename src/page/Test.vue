@@ -224,8 +224,11 @@ const targetDone = function (): boolean {
       <h1>抽卡记录:</h1>
       <el-row :gutter="5">
         <el-col :span="24">
-          <el-card v-for="(res, index) in resList" :key="index" class="resListItem">
+          <el-card v-if="resList > 300" v-for="(res, index) in resList" :key="index" class="resListItem">
             <span :class="res.class"> {{ res.name }} {{ res.desc || '' }}</span>
+          </el-card>
+          <el-card v-else>
+            <span>记录太多了,不显示了,要不你内存扛不住的</span>
           </el-card>
         </el-col>
       </el-row>
