@@ -157,6 +157,11 @@ const getTarget = async () => {
   while (!targetDone()) {
     await getOneCard()
   }
+  ElMessage({
+    type: "error",
+    duration: 100000,
+    message: `${targetNub.value}张${targetCard.value}! 抽到了!`
+  });
 }
 
 const targetDone = function (): boolean {
