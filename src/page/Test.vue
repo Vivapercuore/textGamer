@@ -88,6 +88,7 @@ const get = async (times: number) => {
   }
 }
 
+const sleepnub = ref(100)
 //普通抽卡
 const getOneCard = async () => {
   const now = Math.random()
@@ -111,7 +112,7 @@ const getOneCard = async () => {
     message: `抽到-[${card.starnum}]星卡:${card.name}`
   });
 
-  await sleep(200)
+  await sleep(sleepnub.value)
 }
 //5张保底
 const less5 = async () => {
@@ -164,6 +165,7 @@ const targetDone = function (): boolean {
   return resList.filter(item => item.name == card).length >= nub
 }
 
+
 </script>
 
 <template>
@@ -179,6 +181,8 @@ const targetDone = function (): boolean {
     </el-alert>
     <a href="https://dg.qq.com/webplat/info/news_version3/58876/58877/m22333/202109/900062.shtml">官方标的概率</a>
     <el-main>
+      <el-row :gutter="20"> 抽卡间隔:<el-input-number v-model="sleepnub" :min="1" :max="10000" label="间隔"></el-input-number>
+        ms (1000=1秒,调太低小心死机) </el-row>
       <el-row :gutter="20">
         <el-button @click="get(1)">抽</el-button>
         <el-button @click="get(5)">5连抽</el-button>
